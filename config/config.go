@@ -145,8 +145,12 @@ func (ss *ServiceSchema) ToConfig() (*brokerapi.Service, error) {
 		errs.Add(missingOptionError("service.display_name", "must not be blank"))
 	}
 
+	planList := []brokerapi.ServicePlan{}
 	if len(ss.Plans) == 0 {
 		errs.Add(missingOptionError("service.plans", "must not be blank"))
+	}
+	for _, plan := range ss.plans() {
+		planList = append(planList, *plan)
 	}
 
 	if errs.Length() > 0 {
@@ -161,7 +165,29 @@ func (ss *ServiceSchema) ToConfig() (*brokerapi.Service, error) {
 		Tags:			[]string{"helm","kubernetes"},
 		PlanUpdatable:		true,
 		Plans:			ss.Plans,
-		Metadata:		brokerapi.ServiceMetadata{DisplayName: ss.DisplayName, ImageUrl: ss.IconImage, LongDescription: ss.LongDescription, ProviderDisplayName: ss.ProviderDisplayName, DocumentationUrl: ss.DocumentationURL, SupportUrl: ss.SupportURL},
+		Metadata:		&brokerapi.ServiceMetadata{
+			DisplayName: ss.DisplayName,
+			ImageUrl: fmt.Sprintf("data:image/png;base64,%s", ss.IconImage),
+			LongDescription: ss.LongDescription,
+			ProviderDisplayName: ss.ProviderDisplayName,
+			DocumentationUrl: ss.DocumentationURL,
+			SupportUrl: ss.SupportURL},
 		DashboardClient:	nil,
 	},nil
+}
+
+func (ss *ServiceSchema) plans() map[string] *brokerapi.ServicePlan {
+	plans := map[string]*brokerapi.ServicePlan{}
+	for _, plan := range ss.Plans {
+		plans[plan.Name] = &brokerapi.ServicePlan{
+			ID: plan.ID,
+			Name: plan.Name,
+			Description: plan.Description,
+			Free: plan.Free,
+			Bindable: true,
+			Metadata: plan.Metadata,
+			Schemas: plan.Schemas,
+		}
+	}
+	return plans
 }
