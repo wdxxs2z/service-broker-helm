@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;service-broker-helm&gt;">
+    <CLASSES>
+      <root url="file://D:/gopath/src/gopkg.in" />
+      <root url="file://D:/gopath/src/golang.org" />
+      <root url="file://D:/gopath/src/google.golang.org" />
+      <root url="file://D:/gopath/src/k8s.io" />
+      <root url="file://D:/gopath/src/code.cloudfoundry.org" />
+      <root url="file://D:/gopath/src/gotest" />
+      <root url="file://D:/gopath/src/github.com" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://D:/gopath/src/gopkg.in" />
+      <root url="file://D:/gopath/src/golang.org" />
+      <root url="file://D:/gopath/src/google.golang.org" />
+      <root url="file://D:/gopath/src/k8s.io" />
+      <root url="file://D:/gopath/src/code.cloudfoundry.org" />
+      <root url="file://D:/gopath/src/gotest" />
+      <root url="file://D:/gopath/src/github.com" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
